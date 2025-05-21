@@ -55,7 +55,7 @@ dotnet run
 
 ##  How to Test the Project
 1. **Start the application**
-2. Navigate to: `https://localhost:5001/Login/Index`
+2. Navigate to: `http://localhost:5087/Login/Index`
 3. Enter login credentials (email: `personal email`, username: `admin`, password: `1234`)
 4. System will:
    - Generate a secure 6-digit OTP using Blum-Blum-Shub
