@@ -53,7 +53,7 @@ dotnet run
    - Generate a secure 6-digit OTP using Blum-Blum-Shub
    - Send the OTP to the configured email
 5. Enter the received code in 2FA screen
-6. If correct and within 3 minutes → "Giriş başarılı!"
+6. If correct and within 3 minutes and only three attempts → "Login successful!"
 
 ##  About the Custom PRNG
 - Based on [Blum, Blum & Shub 1986] algorithm
