@@ -1,0 +1,27 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build
+bin/
+obj/
+
+# Publish
+.publish/
+
+# Logs
+*.log
+
+# Secrets
+secrets.json
+.env
+
+# Test Results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# VS Code
+.vscode/

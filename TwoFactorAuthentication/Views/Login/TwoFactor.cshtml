@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "2FA Doğrulama";
+    Layout = "_Layout";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <h2 class="text-center mb-4">2FA Doğrulama</h2>
+
+            <p class="text-center">Lütfen size gönderilen kodu girin.</p>
+
+            <form method="post" action="/Login/VerifyCode">
+                <div class="mb-3">
+                    <label for="code" class="form-label">Kod</label>
+                    <input type="text" class="form-control" id="code" name="code" required />
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Doğrula</button>
+            </form>
+
+            <div class="text-center mt-3">
+                <p id="timer" class="fw-bold text-danger fs-4">03:00</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const totalDuration = 180; // Toplam süre saniye cinsinden (3 dakika)
+    const storageKey = "2fa_start_time";
+
+    // Başlangıç zamanını sakla veya al
+    let startTime = localStorage.getItem(storageKey);
+    if (!startTime) {
+        startTime = Date.now();
+        localStorage.setItem(storageKey, startTime);
+    }
+
+    function updateTimer() {
+        const now = Date.now();
+        const elapsed = Math.floor((now - startTime) / 1000);
+        let timeLeft = totalDuration - elapsed;
+
+        if (timeLeft <= 0) {
+            document.getElementById('timer').textContent = "Süre doldu!";
+            setTimeout(() => {
+                localStorage.removeItem(storageKey); // Süre dolunca temizle
+                window.location.href = "/Login/Index";
+            }, 2000);
+            return;
+        }
+
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+
+        document.getElementById('timer').textContent =
+            (minutes < 10 ? "0" + minutes : minutes) + ":" +
+            (seconds < 10 ? "0" + seconds : seconds);
+
+        setTimeout(updateTimer, 1000);
+    }
+
+    updateTimer();
+</script>
+
