@@ -43,8 +43,6 @@ dotnet build
 dotnet run
 ```
 
->  You may need to enable “Less secure apps” or use App Password (e.g. Gmail).
-
 ##  How to Test the Project
 1. **Start the application**
 2. Navigate to: `http://localhost:5087/Login/Index`
