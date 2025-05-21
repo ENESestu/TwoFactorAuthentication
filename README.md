@@ -40,8 +40,8 @@ This project implements a secure Two-Factor Authentication (2FA) system using a 
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-repo/twofactor-prng.git
-cd twofactor-prng
+git clone https://github.com/ENESestu/TwoFactorAuthentication.git
+cd 2FA
 ```
 
 ### 2. Open with Visual Studio (or run from terminal)
