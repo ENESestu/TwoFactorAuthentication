@@ -1,4 +1,4 @@
-
+![image](https://github.com/user-attachments/assets/26c9d4de-8080-481c-acea-df7a0923d5cd)
 #  Two-Factor Authentication (2FA) with Custom PRNG — Cryptography Term Project
 
 ##  Project Overview
@@ -62,6 +62,8 @@ dotnet run
    - Send the OTP to the configured email
 5. Enter the received code in 2FA screen
 6. If correct and within 3 minutes → "Giriş başarılı!"
+![Uploading image.png…]()
+
 
 ##  About the Custom PRNG
 - Based on [Blum, Blum & Shub 1986] algorithm
