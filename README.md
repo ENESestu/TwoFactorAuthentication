@@ -26,14 +26,6 @@ This project implements a secure Two-Factor Authentication (2FA) system using a 
   └── BlumBlumShub.cs
 /Services
   └── MailService.cs
-/Views/Login
-  └── Home
-    ├── Index.cshtml
-  └── Login
-    ├── Index.cshtml       --> Login Page
-    └── TwoFactor.cshtml   --> OTP Input + Timer
-/Program.cs
-/_Layout.cshtml
 ```
 
 ##  How to Run
