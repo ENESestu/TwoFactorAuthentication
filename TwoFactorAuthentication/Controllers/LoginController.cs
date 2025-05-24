@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Numerics;
+using System.Security.Cryptography;
 using TwoFactorAuthentication.Helpers;
 using TwoFactorAuthentication.Services;
 namespace TwoFactorAuthentication.Controllers;
@@ -21,13 +23,15 @@ public class LoginController : Controller
         if (username == "admin" && password == "1234")
         {
             string secretCode = string.Empty;
-
-            secretCode = GenerateTwoFactorCode(); 
+            var stopwatch = Stopwatch.StartNew(); // Zamanlayıcıyı başlat
+            secretCode = GenerateTwoFactorCode();
+         
             HttpContext.Session.SetString("TwoFactorCode", secretCode);
             HttpContext.Session.SetString("UserName", username);
 
             SendMail(email,secretCode);
-            
+            stopwatch.Stop(); // Zamanlayıcıyı durdur
+            Console.WriteLine($"Fonksiyon süresi: {stopwatch.ElapsedMilliseconds} ms");
             return RedirectToAction("TwoFactor");
         }
 
@@ -76,22 +80,33 @@ public class LoginController : Controller
         );
     }
 
-    private string GenerateTwoFactorCode()
-    {
-        BigInteger p = 499;  // 3 mod 4 ≡ 3
-        BigInteger q = 547;  // 3 mod 4 ≡ 3
-        BigInteger seed = DateTime.Now.Ticks % (p * q);
+    private string GenerateTwoFactorCode() { 
+    
+        // p ve q büyük ve mod 4 ≡ 3 olan asal sayılar
+        BigInteger p = BigInteger.Parse("9767004122294309419553464204387980056645056427386287437353631667657057416229974543300062960928736378357480457424650995694616552982640435669718802225678359");
+        BigInteger q = BigInteger.Parse("12709274962289423451030864605822882507896641222656008607779725686353632015882771008595817358672513223741575650345932554609008120464634073855185437191205127");
+
+        // Seed bileşenleri
+        BigInteger timeComponent = new BigInteger(DateTime.UtcNow.Ticks);
+        BigInteger guidComponent = new BigInteger(Guid.NewGuid().ToByteArray());
+        BigInteger randomComponent = new BigInteger(RandomNumberGenerator.GetBytes(64));
+
+        // XOR işlemiyle karıştır, negatiflik kontrolü
+        BigInteger seed = BigInteger.Abs(timeComponent ^ guidComponent ^ randomComponent);
+        if (seed == 0) seed = 1;
 
         var bbs = new BlumBlumShub(seed, p, q);
 
-        // 6 haneli kod üretelim:
+        // 6 haneli 2FA kodu üret
         string code = "";
         for (int i = 0; i < 6; i++)
         {
             code += (bbs.NextNumber(4) % 10);
         }
+
         return code;
     }
+
     public static class TwoFALimiter
     {
         private static readonly Dictionary<string, (int attempts, DateTime lastAttempt)> _attempts = new();

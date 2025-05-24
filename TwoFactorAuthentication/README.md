@@ -54,7 +54,7 @@ dotnet run
 
 ##  About the Custom PRNG
 - Based on [Blum, Blum & Shub 1986] algorithm
-- Seed derived from `DateTime.Now.Ticks`
+- Seed derived from `DateTime.Now.Ticks, Guid.NewGuid() and RandomNumberGenerator.GetBytes(64)` 
 - 6-digit OTP generated using `NextNumber(bits)` logic
 - Designed to resist brute-force & prediction attacks
 
