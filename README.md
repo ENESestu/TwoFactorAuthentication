@@ -1,5 +1,4 @@
-
-#  Two-Factor Authentication (2FA) with Custom PRNG — Cryptography Term Project
+﻿#  Two-Factor Authentication (2FA) with Custom PRNG — Cryptography Term Project
 
 ##  Project Overview
 This project implements a secure Two-Factor Authentication (2FA) system using a **custom-designed pseudorandom number generator (PRNG)** based on the **Blum-Blum-Shub** algorithm. The purpose is to enhance authentication security by avoiding insecure built-in random number generators and demonstrating cryptographic PRNG concepts.
@@ -55,7 +54,7 @@ dotnet run
 
 ##  About the Custom PRNG
 - Based on [Blum, Blum & Shub 1986] algorithm
-- Seed derived from `DateTime.Now.Ticks`
+- Seed derived from `DateTime.Now.Ticks, Guid.NewGuid() and RandomNumberGenerator.GetBytes(64)` 
 - 6-digit OTP generated using `NextNumber(bits)` logic
 - Designed to resist brute-force & prediction attacks
 
